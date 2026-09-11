@@ -191,61 +191,55 @@ function drawBackground(dt) {
 
 function drawPlayer() {
   if (
-    player.invulnerable > 0 &&
-    Math.floor(player.invulnerable * 12) % 2 === 0
+    player.invincible > 0 &&
+    Math.floor(player.invincible * 12) % 2 === 0
   ) {
     return;
   }
 
   ctx.save();
-  ctx.translate(player.x, player.y);
+  ctx.translate(
+    Math.floor(player.x),
+    Math.floor(player.y)
+  );
 
+  // Escudo verde
   if (player.shield > 0) {
-    ctx.strokeStyle = "#50f5ff";
+    ctx.strokeStyle = "#00ff00";
     ctx.lineWidth = 4;
-    ctx.shadowColor = "#00d9ff";
-    ctx.shadowBlur = 20;
 
     ctx.beginPath();
-    ctx.arc(0, 0, 39, 0, Math.PI * 2);
+    ctx.rect(-38, -38, 76, 76);
     ctx.stroke();
-
-    ctx.shadowBlur = 0;
   }
 
-  ctx.shadowColor = "#00bfff";
-  ctx.shadowBlur = 18;
-
-  const shipGradient = ctx.createLinearGradient(0, -28, 0, 28);
-
-  shipGradient.addColorStop(0, "#ffffff");
-  shipGradient.addColorStop(0.4, "#53dcff");
-  shipGradient.addColorStop(1, "#1768d4");
-
-  ctx.fillStyle = shipGradient;
+  // Corpo da nave
+  ctx.fillStyle = "#ffffff";
 
   ctx.beginPath();
   ctx.moveTo(0, -28);
-  ctx.lineTo(22, 23);
-  ctx.lineTo(0, 16);
-  ctx.lineTo(-22, 23);
+  ctx.lineTo(22, 20);
+  ctx.lineTo(9, 16);
+  ctx.lineTo(0, 24);
+  ctx.lineTo(-9, 16);
+  ctx.lineTo(-22, 20);
   ctx.closePath();
   ctx.fill();
 
-  ctx.fillStyle = "#19316d";
+  // Parte azul da nave
+  ctx.fillStyle = "#00aaff";
+  ctx.fillRect(-8, -8, 16, 20);
 
-  ctx.beginPath();
-  ctx.ellipse(0, -5, 8, 12, 0, 0, Math.PI * 2);
-  ctx.fill();
+  // Janela
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(-5, -3, 10, 10);
 
-  ctx.fillStyle = "#ffef6e";
+  // Fogo da nave
+  ctx.fillStyle = "#ffb000";
+  ctx.fillRect(-7, 20, 14, 11);
 
-  ctx.beginPath();
-  ctx.moveTo(-8, 22);
-  ctx.lineTo(0, 39 + Math.random() * 8);
-  ctx.lineTo(8, 22);
-  ctx.closePath();
-  ctx.fill();
+  ctx.fillStyle = "#ff5500";
+  ctx.fillRect(-3, 30, 6, 8);
 
   ctx.restore();
 }
