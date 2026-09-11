@@ -244,53 +244,32 @@ function drawPlayer() {
   ctx.restore();
 }
 
-function drawMeteor(meteor) {
+function drawMeteor(m) {
   ctx.save();
-  ctx.translate(meteor.x, meteor.y);
-  ctx.rotate(meteor.rotation);
 
-  ctx.shadowColor = "#ff542e";
-  ctx.shadowBlur = 12;
-  ctx.fillStyle = meteor.color;
+  ctx.translate(
+    Math.floor(m.x),
+    Math.floor(m.y)
+  );
 
-  ctx.beginPath();
+  ctx.rotate(m.angle);
 
-  for (let i = 0; i < 10; i++) {
-    const angle = (Math.PI * 2 * i) / 10;
-    const variation = i % 2 === 0 ? 1 : random(0.72, 0.92);
-    const radius = meteor.radius * variation;
+  // Meteoro quadrado/pixelado
+  ctx.fillStyle = "#703800";
 
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
+  ctx.fillRect(-m.r, -m.r, m.r * 2, m.r * 2);
 
-    if (i === 0) {
-      ctx.moveTo(x, y);
-    } else {
-      ctx.lineTo(x, y);
-    }
-  }
+  ctx.fillStyle = "#a05020";
 
-  ctx.closePath();
-  ctx.fill();
+  ctx.fillRect(-m.r + 6, -m.r + 6, 12, 12);
+  ctx.fillRect(m.r - 15, -m.r + 14, 9, 9);
+  ctx.fillRect(-m.r + 13, m.r - 18, 10, 10);
 
-  ctx.shadowBlur = 0;
-  ctx.fillStyle = "rgba(35, 20, 30, .35)";
-
-  for (let i = 0; i < 3; i++) {
-    ctx.beginPath();
-    ctx.arc(
-      random(-meteor.radius / 2, meteor.radius / 2),
-      random(-meteor.radius / 2, meteor.radius / 2),
-      random(3, 7),
-      0,
-      Math.PI * 2
-    );
-    ctx.fill();
-  }
+  ctx.fillStyle = "#ffb000";
+  ctx.fillRect(-5, -5, 8, 8);
 
   ctx.restore();
 }
-
 function drawStar(star) {
   ctx.save();
 
