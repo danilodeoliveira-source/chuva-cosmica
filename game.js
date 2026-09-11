@@ -313,6 +313,29 @@ function drawPower(power) {
   ctx.restore();
 }
 
+function drawShield(item) {
+  ctx.save();
+
+  ctx.translate(
+    Math.floor(item.x),
+    Math.floor(item.y)
+  );
+
+  ctx.fillStyle = "#00ff00";
+
+  ctx.fillRect(-16, -16, 32, 32);
+
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(-9, -9, 18, 18);
+
+  ctx.fillStyle = "#00ff00";
+  ctx.font = "bold 18px monospace";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("S", 0, 1);
+
+  ctx.restore();
+}
 function drawParticles() {
   for (const particle of particles) {
     ctx.globalAlpha = Math.max(
