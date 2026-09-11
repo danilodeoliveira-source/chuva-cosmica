@@ -270,38 +270,26 @@ function drawMeteor(m) {
 
   ctx.restore();
 }
-function drawStar(star) {
+function drawStar(s) {
   ctx.save();
 
-  ctx.translate(star.x, star.y);
-  ctx.rotate(star.rotation);
+  ctx.translate(
+    Math.floor(s.x),
+    Math.floor(s.y)
+  );
 
-  ctx.shadowColor = "#ffe943";
-  ctx.shadowBlur = 18;
-  ctx.fillStyle = "#ffe943";
+  ctx.fillStyle = "#ffb000";
 
-  ctx.beginPath();
+  // Estrela em blocos
+  ctx.fillRect(-4, -16, 8, 32);
+  ctx.fillRect(-16, -4, 32, 8);
+  ctx.fillRect(-9, -9, 18, 18);
 
-  for (let i = 0; i < 10; i++) {
-    const angle = -Math.PI / 2 + i * Math.PI / 5;
-    const radius = i % 2 === 0 ? star.radius : star.radius * 0.43;
-
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
-
-    if (i === 0) {
-      ctx.moveTo(x, y);
-    } else {
-      ctx.lineTo(x, y);
-    }
-  }
-
-  ctx.closePath();
-  ctx.fill();
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(-3, -8, 6, 6);
 
   ctx.restore();
 }
-
 function drawPower(power) {
   ctx.save();
 
