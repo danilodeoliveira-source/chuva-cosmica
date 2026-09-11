@@ -630,53 +630,40 @@ function draw(dt) {
     );
   }
 
-  drawBackground(dt);
+  function drawBackground(dt) {
+  // Fundo preto típico dos jogos antigos
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, W, H);
 
-  meteors.forEach(drawMeteor);
-  stars.forEach(drawStar);
-  powers.forEach(drawPower);
-  drawParticles();
+  // Estrelas quadradas
+  for (const s of sky) {
+    s.y += s.speed * dt;
 
-  if (state !== "menu") {
-    drawPlayer();
-    drawHUD();
-  }
+    if (s.y > H) {
+      s.y = -5;
+      s.x = Math.random() * W;
+    }
 
-  ctx.restore();
+    ctx.fillStyle = Math.random() > 0.5
+      ? "#ffffff"
+      : "#aaaaaa";
 
-  if (messageTimer > 0 && state === "playing") {
-    ctx.textAlign = "center";
-    ctx.font = "bold 24px Arial";
-    ctx.fillStyle = "#ffe943";
-    ctx.fillText("+100 pontos!", WIDTH / 2, 125);
-    ctx.textAlign = "left";
-  }
-
-  if (state === "menu") {
-    drawOverlay(
-      "CHUVA CÓSMICA",
-      [
-        "Desvie dos meteoros e colete estrelas.",
-        "Pegue o escudo verde para ficar protegido.",
-        "Você tem 3 vidas."
-      ],
-      "COMEÇAR"
+    ctx.fillRect(
+      Math.floor(s.x),
+      Math.floor(s.y),
+      Math.ceil(s.size),
+      Math.ceil(s.size)
     );
   }
 
-  if (state === "gameover") {
-    drawOverlay(
-      "FIM DE JOGO",
-      [
-        `Pontuação: ${Math.floor(score)}`,
-        `Recorde: ${highScore}`,
-        "Tente novamente e supere sua pontuação!"
-      ],
-      "JOGAR NOVAMENTE"
-    );
-  }
+  // Lua quadrada em estilo 8-bit
+  ctx.fillStyle = "#ffb000";
+  ctx.fillRect(W - 125, 65, 55, 55);
+
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(W - 110, 65, 40, 20);
+  ctx.fillRect(W - 125, 85, 15, 25);
 }
-
 function canvasPosition(event) {
   const rect = canvas.getBoundingClientRect();
 
