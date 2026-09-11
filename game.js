@@ -336,6 +336,7 @@ function drawShield(item) {
 
   ctx.restore();
 }
+
 function drawParticles() {
   for (const particle of particles) {
     ctx.globalAlpha = Math.max(
